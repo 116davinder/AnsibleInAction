@@ -8,4 +8,4 @@ You can use this code anywhere.
 
 
 ### Support or Contact
-[EMAIL-ID](**dpsangwal@gmail.com**)
+**EMAIL-dpsangwal@gmail.com**

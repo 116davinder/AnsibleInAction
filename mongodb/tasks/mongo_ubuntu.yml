@@ -1,0 +1,23 @@
+---
+
+- name: Adding Key for mongodb
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 0C49F3730359A14518585931BC711F9BA15703C6
+
+- name: Adding MongoDB source list
+  apt_repository:
+    repo: "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/3.4 multiverse"
+    state: present
+    update_cache: true
+    filename: 'MongoDB-3.4'
+
+- name: Installing MongoDB
+  apt:
+    name: mongodb-org
+    state: present
+
+- name: Ensure MongoDB is Running
+  service:
+    name: mongod
+    state: started

@@ -4,9 +4,8 @@ Ansible forever.
 ### Open Source
 You can use this code anywhere.
 
-### List of roles
-* MySql-Server
-* MongoDB-Server
+### List of vars
+
 
 ### Support or Contact
-[EMAIL-ID](**dpsangwal@gmail.com**)
+**EMAIL-dpsangwal@gmail.com**

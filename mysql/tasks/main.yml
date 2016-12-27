@@ -1,0 +1,10 @@
+---
+
+- include: bootstrap.yml
+  when: ansible_os_family == 'Debian'
+
+- include: mysql_ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include: mysql_redhat.yml
+  when: ansible_os_family == 'RedHat'

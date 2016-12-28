@@ -1,0 +1,20 @@
+---
+- name: Adding MongoDB Repository
+  yum_repository:
+    name: MongoDB Repository
+    description: MongoDB-3.4
+    baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+    gpgkey: https://www.mongodb.org/static/pgp/server-3.4.asc
+    gpgcheck: yes
+    enabled: yes
+
+- name: Installing MongoDB
+  yum:
+    name: mongodb-org
+    state: present
+
+- name: Ensuring MongoDB is running
+  service:
+    name: mongod
+    state: started
+    enabled:  true

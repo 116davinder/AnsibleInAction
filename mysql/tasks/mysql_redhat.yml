@@ -1,32 +1,50 @@
 ---
 
-- name: Copying Latest yum config to System
-  copy:
-    src: mysql57-community-release-el7-9.noarch.rpm
-    dest: /tmp/mysql57-community-release-el7-9.noarch.rpm
-
-- name: Installing Latest APT config for mysql-server
+- name: Install the MySQL-Server rpm from a remote repo
   yum:
-    name: /tmp/mysql57-community-release-el7-9.noarch.rpm
+    name: http://repo.mysql.com//mysql57-community-release-el7-9.noarch.rpm
+    state: present
     update_cache: true
 
-- name: Install MySQL-Serve
-  yum: package={{ item }} state=present
+- name: Install MySQL-Server
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
     - mysql-server
-    - mysql-client
-    - python-mysqldb
+    - MySQL-python
 
-- name: Deletes anonymous MySQL server user for localhost
-  mysql_user: user="" state="absent" login_password="{{ MySQL_root_pass }}" login_user=root
+- name: Ensure mysql-server is running
+  service:
+    name: mysqld
+    state: started
+    enabled: true
 
-- name: Secures the MySQL root user
-  mysql_user: user="root" password="{{ MySQL_root_pass }}" host="{{ item }}" login_password="{{MySQL_root_pass}}" login_user=root
-  with_items:
-    - 127.0.0.1
-    - localhost
-    - ::1
-    - "{{ ansible_fqdn }}"
+################################## need to work on this part
 
-- name: Removes the MySQL test database
-  mysql_db: db=test state=absent login_password="{{ MySQL_root_pass }}" login_user=root
+# - name: Deletes anonymous MySQL server user for localhost
+#   mysql_user:
+#     user: ""
+#     state: absent
+#     login_password: "{{ MySQL_root_pass }}"
+#     login_user: root
+#
+# - name: Set root password
+#   mysql_user:
+#     user: root
+#     password: "{{ MySQL_root_pass }}"
+#     host: "{{ item }}"
+#     login_password: "{{ MySQL_root_pass }}"
+#     login_user: root
+#   with_items:
+#     - 127.0.0.1
+#     - localhost
+#     - ::1
+#     - "{{ ansible_fqdn }}"
+#
+# - name: Removes the MySQL test database
+#   mysql_db:
+#     db: test
+#     state: absent
+#     login_password: "{{ MySQL_root_pass }}"
+#     login_user: root

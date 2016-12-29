@@ -1,0 +1,28 @@
+---
+
+- name: Updating Cache and Install build tools
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - build-essential
+    - tcl
+
+- name: Downloading Redis Stable and Extraction
+  unarchive:
+    src: http://download.redis.io/redis-stable.tar.gz
+    dest: /usr/local/
+    creates: /usr/local/redis-stable
+    remote_src: True
+
+- name: Making Redis Stable
+  make:
+    chdir: /usr/local/redis-stable
+
+- name: Make Install Redis Stable
+  make:
+    chdir: /usr/local/redis-stable
+    target: install
+
+- include: configure_redis.yml

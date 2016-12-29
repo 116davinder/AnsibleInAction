@@ -1,0 +1,59 @@
+---
+- name: Making Redis Sytem group
+  group:
+    name: redis
+    state: present
+    system: true
+
+- name: Making Redis system user
+  user:
+    name: redis
+    system: true
+    createhome: false
+    group: redis
+
+- name: Making Configuraton directory for redis
+  file:
+    state: directory
+    path: /etc/redis
+
+- name: Making data directory for redis
+  file:
+    state: directory
+    path: /var/lib/redis
+    owner: redis
+    group: redis
+    mode: 0770
+
+- name: Copying Redis conf File from Redis Folder
+  copy:
+    src: /usr/local/redis-stable/redis.conf
+    dest: /etc/redis/
+    owner: redis
+    group: redis
+    remote_src: true
+
+- name: Adding supervised Configuraton to Redis conf
+  replace:
+    dest: /etc/redis/redis.conf
+    regexp: '^supervised no'
+    replace: 'supervised systemd'
+
+- name: Adding data directory Configuraton vars to Redis conf
+  replace:
+    dest: /etc/redis/redis.conf
+    regexp: '^dir ./'
+    replace: 'dir /var/lib/redis'
+
+- name: Copying Redis Service File
+  copy:
+    src: redis.service
+    dest: /etc/systemd/system/redis.service
+    owner: redis
+    group: redis
+
+- name: Starting Redis service
+  service:
+    name: redis
+    state: started
+    enabled: true

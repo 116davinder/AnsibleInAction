@@ -10,6 +10,8 @@ You can use this code anywhere.
 * Memcache-Server
 * Postgresql-Server
 * Redis-Server
+* r_server_standalone (R and RStudio)
+* docker-engine-compose (Docker Engine and Compose)
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**
@@ -19,6 +21,5 @@ You can use this code anywhere.
 ### Notes*
 ```
 All roles are tested with ubuntu based system till now.
-Redis and MongoDB roles are tested on both systems(Redhat and ubuntu).
 Test Environment are ubuntu 16.04(64bit) and Centos-7(64bit)
 ```

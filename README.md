@@ -10,13 +10,15 @@ You can use this code anywhere.
 * Memcache-Server
 * Postgresql-Server
 * Redis-Server
+
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**
 
 **All roles will work for Redhat and Ubuntu based Server.**
 
+### Notes*
 ```
 All roles are tested with ubuntu based system till now.
-
 Redis and MongoDB roles are tested on both systems(Redhat and ubuntu).
+Test Environment are ubuntu 16.04(64bit) and Centos-7(64bit)
 ```

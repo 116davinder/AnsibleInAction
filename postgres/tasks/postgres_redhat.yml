@@ -1,27 +1,25 @@
 ---
-- name: Excluding postgresql from repos for {{ ansible_distribution }}
+- name: Excluding postgresql from base repos
   lineinfile:
     dest: /etc/yum.repos.d/CentOS-Base.repo
-    regexp: '[base]'
-    insertafter: '^[base]'
+    insertafter: '^\[base]'
     line: 'exclude=postgresql*'
     state: present
   when: ansible_distribution == 'CentOS'
 
-- name: Excluding postgresql from repos for {{ ansible_distribution }}
+- name: Excluding postgresql from updates repos
   lineinfile:
     dest: /etc/yum.repos.d/CentOS-Base.repo
-    regexp: '[updates]'
-    insertafter: '^[updates]'
+    insertafter: '^\[update]'
     line: 'exclude=postgresql*'
     state: present
   when: ansible_distribution == 'CentOS'
 
-- name: Excluding postgresql from repos for {{ ansible_distribution }}
+- name: Excluding postgresql from main repos
   lineinfile:
     dest: /etc/yum/pluginconf.d/rhnplugin.conf
-    regexp: '[main]'
-    insertafter: '^[main]'
+    regexp: '^\[main]'
+    insertafter: '[main]'
     line: 'exclude=postgresql*'
     state: present
   when: ansible_distribution == 'Red Hat Enterprise Linux'

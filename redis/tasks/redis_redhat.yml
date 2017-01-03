@@ -1,6 +1,6 @@
 ---
 
-- name: Install the Redis-Server rpm from a remote repo
+- name: Installing epel-release-7
   yum:
     name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
     state: present

@@ -12,6 +12,8 @@ You can use this code anywhere.
 * Redis-Server
 * r_server_standalone (R and RStudio)
 * docker-engine-compose (Docker Engine and Compose)
+* Java
+* Jboss
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**
@@ -21,5 +23,6 @@ You can use this code anywhere.
 ### Notes*
 ```
 All roles are tested with ubuntu based system till now.
-Test Environment are ubuntu 16.04(64bit) and Centos-7(64bit)
+Test Environment are ubuntu 16.04(64bit) and Centos-7(64bit).
+Testing of all roles in Centos-7 is not compeleted yet.
 ```

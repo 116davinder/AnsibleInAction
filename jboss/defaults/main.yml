@@ -1,0 +1,4 @@
+---
+
+  jboss_https_port: 8901
+  jboss_http_port:  8900

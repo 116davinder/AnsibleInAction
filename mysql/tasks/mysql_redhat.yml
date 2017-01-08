@@ -21,8 +21,8 @@
     enabled: true
 
 - name: Getting MySql Temporary Password
-  shell:	"grep 'temporary password' /var/log/mysqld.log | awk {'print $11'}"
-	register:	mysql_temp_password
+  shell:  "grep 'temporary password' /var/log/mysqld.log | awk {'print $11'}"
+  register: mysql_temp_password
 
  - name: Deletes anonymous MySQL server user for localhost
    mysql_user:
@@ -37,7 +37,7 @@
      password: "{{ MySQL_root_pass }}"
      host: "{{ item }}"
      login_user: root
-		 login_password: "{{ mysql_temp_password.stdout }}"
+     login_password: "{{ mysql_temp_password.stdout }}"
    with_items:
      - 127.0.0.1
      - localhost

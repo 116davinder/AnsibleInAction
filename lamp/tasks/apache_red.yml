@@ -1,0 +1,7 @@
+---
+
+- name: Installing Apache2 | if OS is Redhat Based
+  yum:
+    name: httpd
+    state: present
+    update_cache: true

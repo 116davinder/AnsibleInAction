@@ -1,0 +1,52 @@
+---
+
+- name: Install the MySQL-Server rpm from a remote repo
+  yum:
+    name: http://repo.mysql.com//mysql57-community-release-el7-9.noarch.rpm
+    state: present
+    update_cache: true
+
+- name: Install MySQL-Server
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mysql-server
+    - MySQL-python
+
+- name: Ensure mysql-server is running
+  service:
+    name: mysqld
+    state: started
+    enabled: true
+
+- name: Getting MySql Temporary Password
+  shell:  "grep 'temporary password' /var/log/mysqld.log | awk {'print $11'}"
+  register: mysql_temp_password
+
+ - name: Deletes anonymous MySQL server user for localhost
+   mysql_user:
+     user: ""
+     state: absent
+     login_password: "{{ mysql_temp_password.stdout }}"
+     login_user: root
+
+ - name: Set root password
+   mysql_user:
+     user: root
+     password: "{{ MySQL_root_pass }}"
+     host: "{{ item }}"
+     login_user: root
+     login_password: "{{ mysql_temp_password.stdout }}"
+   with_items:
+     - 127.0.0.1
+     - localhost
+     - ::1
+     - "{{ ansible_fqdn }}"
+
+ - name: Removes the MySQL test database
+   mysql_db:
+     db: test
+     state: absent
+     login_password: "{{ MySQL_root_pass }}"
+     login_user: root

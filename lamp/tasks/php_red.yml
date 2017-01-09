@@ -1,0 +1,22 @@
+---
+
+- name: Installing PHP5 and its dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - php
+    - php-mysql
+
+- name: Creating Demo PHP Page
+  state: present
+  create: true
+  dest: /var/www/html/info.php
+  mode: 0664
+  blockinfile: |
+    <?php
+    phpinfo();
+    ?>
+  notify:
+    - restart httpd

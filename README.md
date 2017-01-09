@@ -14,6 +14,7 @@ You can use this code anywhere.
 * docker-engine-compose (Docker Engine and Compose)
 * Java
 * Jboss
+* LAMP Stack
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**

@@ -1,10 +1,10 @@
 ---
 
 - name: Getting Java Home Path from System
-  shell: "readlink -f ${which java}"
+  shell: "readlink -f /usr/bin/java | sed 's:jre/bin/java::'"
   register: java_home_location
 
-- name: Setting Java Home | Using template
+- name: Setting Java Home
   create: true
   dest: /etc/profile.d/java.sh
   mode: 0775

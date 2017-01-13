@@ -14,5 +14,14 @@
     - python-software-properties
     - debconf-utils
 
+- name: Accepting Oracle Licence
+  debconf:
+    name: "oracle-java{{ java_version }}-installer"
+    question: shared/accepted-oracle-license-v1-1
+    value: true
+    vtype: select
+
 - name: Install Oracle Java | {{ java_version }}
-  shell:  "echo 'oracle-java{{ java_version }}-installer shared/accepted-oracle-license-v1-1 select true' | sudo debconf-set-selections && apt-get install -y oracle-java{{ java_version }}-installer"
+  apt:
+    name: "oracle-java{{ java_version }}-installer"
+    state: present

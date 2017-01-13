@@ -17,9 +17,10 @@
     - need_java | failed
     - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-# - name: Java_home  | Checking if Java_home setting is needed
-#   register: checking_java_home
-#
-# - include: java_home.yml
-#   when:
-#     - checking_java_home | failed
+- name: Java_home  | Checking if Java_home setting is needed
+  command:  /bin/bash -l -c "echo $JAVA_HOME"
+  register: checking_java_home
+
+- include: java_home.yml
+  when:
+    - checking_java_home.stdout == ''

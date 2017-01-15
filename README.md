@@ -10,11 +10,12 @@ You can use this code anywhere.
 * Memcache-Server
 * Postgresql-Server
 * Redis-Server
-* r_server_standalone (R and RStudio)
-* docker-engine-compose (Docker Engine and Compose)
+* R (R and RStudio)
+* Docker (Docker Engine and Compose)
 * Java
 * Jboss
 * LAMP Stack
+* Tomcat
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**

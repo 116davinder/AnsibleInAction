@@ -1,0 +1,29 @@
+---
+- name: Creating Systemd Script
+  blockinfile:
+    dest: /etc/systemd/system/tomcat.service
+    mode: 0777
+    owner: root
+    group: root
+    create: true
+    block: |
+    [Unit]
+    Description=Tomcat9
+    After=network.target
+
+    [Service]
+    Type=forking
+    User=tomcat
+    Group=tomcat
+
+    Environment=CATALINA_PID=/usr/share/tomcat/tomcat9.pid
+    Environment=CATALINA_HOME=/usr/share/tomcat
+    Environment=CATALINA_BASE=/usr/share/tomcat
+    Environment="CATALINA_OPTS=-Xms512m -Xmx512m"
+    Environment="JAVA_OPTS=-Dfile.encoding=UTF-8 -Dnet.sf.ehcache.skipUpdateCheck=true -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC"
+
+    ExecStart=/usr/share/tomcat/bin/startup.sh
+    ExecStop=/usr/share/tomcat/bin/shutdown.sh
+
+    [Install]
+    WantedBy=multi-user.target

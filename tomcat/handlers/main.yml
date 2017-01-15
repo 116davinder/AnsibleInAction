@@ -1,0 +1,13 @@
+---
+
+- name: restart tomcat7
+  service:
+    name: tomcat7
+    state: restarted
+    enabled: true
+
+- name: restart tomcat
+  service:
+    name: tomcat
+    state: restarted
+    enabled: true

@@ -1,0 +1,13 @@
+---
+
+- include: ubuntu/tomcat7.yml
+  when:
+    - tomcat_version == 7
+
+- include: ubuntu/tomcat8.yml
+  when:
+    - tomcat_version == 8
+
+- include: ubuntu/tomcat9.yml
+  when:
+    - tomcat_version == 9

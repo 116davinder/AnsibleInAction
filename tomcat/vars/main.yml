@@ -1,0 +1,4 @@
+---
+
+tomcat_version: 9     # 7/8/9
+tomcat_admin_pass: password

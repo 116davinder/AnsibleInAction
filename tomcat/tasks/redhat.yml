@@ -1,0 +1,13 @@
+---
+
+- include: redhat/tomcat7.yml
+  when:
+    - tomcat_version == 7
+
+- include: redhat/tomcat8.yml
+  when:
+    - tomcat_version == 8
+
+- include: redhat/tomcat9.yml
+  when:
+    - tomcat_version == 9

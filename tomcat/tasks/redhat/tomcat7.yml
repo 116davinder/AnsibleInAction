@@ -1,0 +1,34 @@
+---
+- name: Installing Tomcat Server | 7
+   yum:
+     name: tomcat
+     state: present
+     update_cache: true
+
+- name: Installing Tomcat Server Dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - tomcat-webapps
+    - tomcat-admin-webapps
+    - tomcat-docs-webapp
+    - tomcat-javadoc
+
+ - name: Setting JAVA_OPTS for Tomcat Server
+   lineinfile:
+     dest: /usr/share/tomcat/conf/tomcat.conf
+     regexp: '^JAVA_OPTS='
+     line: 'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"'
+     state: present
+
+ - name: Creating default user admin
+   blockinfile:
+     dest: /etc/tomcat7/tomcat-users.xml
+     create: true
+     block: |
+     <tomcat-users>
+     <user username="admin" password="{{ tomcat_admin_pass }}" roles="manager-gui,admin-gui"/>
+     </tomcat-users>
+   notify:
+     - restart tomcat

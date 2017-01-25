@@ -12,10 +12,12 @@ You can use this code anywhere.
 * Redis-Server
 * R (R and RStudio)
 * Docker (Docker Engine and Compose)
-* Java
+* Java (oracle based java)
 * Jboss
 * LAMP Stack
 * Tomcat
+* Backup MySql-Server
+* Backup MongoDB-Server
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**

@@ -1,0 +1,16 @@
+---
+
+- name: Creating Backup Folder | {{ mysql_backup_dir }}
+  file:
+    path: "{{ mysql_backup_dir }}"
+    state: directory
+
+- name: Taking Backup date | {{ ansible_date_time.date }}
+  mysql_db:
+    login_host: "{{ mysql_host }}"
+    login_password: {{ mysql_admin_password }}
+    login_user: {{ mysql_admin_user }}
+    login_port: {{ mysql_datebase_port }}
+    name: "{{ mysql_datebase_name }}"
+    state: dump
+    target: "{{ mysql_backup_dir }}/{{ ansible_date_time.date }}.sql.gz"

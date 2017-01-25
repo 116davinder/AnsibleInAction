@@ -1,0 +1,27 @@
+---
+- name: Adding Key for postgresql
+  apt_key:
+    url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+    state: present
+
+- name: Adding postgresql source list
+  apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+    state: present
+    update_cache: true
+    filename: 'postgresql'
+
+- name: Ensure Postgres packages are installed
+  apt:
+    name: "{{item}}"
+  with_items:
+      - postgresql
+      - libpq-dev
+      - python-psycopg2
+      - postgresql-contrib
+      - postgresql-client
+
+- name: Ensure Postgres is running
+  service:
+    name: postgresql
+    state: started

@@ -1,0 +1,42 @@
+---
+- name: Excluding postgresql from base repos
+  lineinfile:
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+    insertafter: '^\[base]'
+    line: 'exclude=postgresql*'
+    state: present
+  when: ansible_distribution == 'CentOS'
+
+- name: Excluding postgresql from updates repos
+  lineinfile:
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+    insertafter: '^\[update]'
+    line: 'exclude=postgresql*'
+    state: present
+  when: ansible_distribution == 'CentOS'
+
+- name: Excluding postgresql from main repos
+  lineinfile:
+    dest: /etc/yum/pluginconf.d/rhnplugin.conf
+    regexp: '^\[main]'
+    insertafter: '[main]'
+    line: 'exclude=postgresql*'
+    state: present
+  when: ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Install the Postgres rpm from a remote repo
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
+    state: present
+    update_cache: true
+
+- name: Installing postgresql
+  yum:
+    name: postgresql96-server
+    state: present
+
+- name: Ensuring postgresql is running
+  service:
+    name: postgresql
+    state: started
+    enabled:  true

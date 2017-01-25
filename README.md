@@ -1,37 +1,32 @@
-## Welcome to GitHub Pages
+## AnsibleInAction
+Ansible forever.
 
-You can use the [editor on GitHub](https://github.com/116davinder/AnsibleInAction/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### Open Source
+You can use this code anywhere.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/116davinder/AnsibleInAction/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### List of roles
+* MySql-Server
+* MongoDB-Server
+* Memcache-Server
+* Postgresql-Server
+* Redis-Server
+* R (R and RStudio)
+* Docker (Docker Engine and Compose)
+* oracle Java
+* Jboss
+* LAMP Stack
+* Tomcat
+* Backup MySql-Server
+* Backup MongoDB-Server
 
 ### Support or Contact
+**EMAIL-dpsangwal@gmail.com**
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+**All roles will work for Redhat and Ubuntu based Server.**
+
+### Notes*
+```
+All roles are tested with ubuntu based system till now.
+Test Environment are ubuntu 16.04(64bit) and Centos-7(64bit).
+Testing of all roles in Centos-7 is not compeleted yet.
+```

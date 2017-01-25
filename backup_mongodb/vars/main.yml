@@ -1,0 +1,7 @@
+---
+mongodb_database: all
+mongodb_user:
+mongodb_password:
+mongodb_backup_dir: /tmp
+mongodb_host: localhost
+mongodb_port: 27017

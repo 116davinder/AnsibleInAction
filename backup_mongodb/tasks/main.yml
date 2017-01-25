@@ -1,0 +1,24 @@
+---
+
+- name: Creating Backup Folder | {{ mongodb_backup_dir }}
+  file:
+    path: "{{ mongodb_backup_dir }}"
+    state: directory
+
+- name: Taking MongoDB Backup date | {{ ansible_date_time.date }}
+  command: "mongodump --gzip --db {{ mongodb_database }} --host {{ mongodb_host }} --port {{ mongodb_port }} --username {{ mongodb_user }} --password {{ mongodb_password }} --archive={{ mongodb_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  args:
+    chdir: "{{ mongodb_backup_dir }}"
+    creates: "{{ mongodb_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  when:
+    - mongodb_user is defined
+    - mongodb_password is defined
+
+- name: Taking MongoDB Backup date | {{ ansible_date_time.date }}
+  command: "mongodump --gzip --db {{ mongodb_database }} --archive={{ mongodb_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  args:
+    chdir: "{{ mongodb_backup_dir }}"
+    creates: "{{ mongodb_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  when:
+    - mongodb_user is not defined
+    - mongodb_password is not defined

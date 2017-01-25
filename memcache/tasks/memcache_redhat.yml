@@ -1,0 +1,16 @@
+---
+- name: Updating Cache and Installing Memcahed Server
+  yum:
+    package:  "{{ item }}"
+    state:  present
+  with_items:
+    - libevent
+    - libevent-devel
+    - memcached
+    - php-pecl-memcache
+
+- name: Ensuring memcached server is running
+  service:
+    name: memcached
+    state: started
+    enabled: true

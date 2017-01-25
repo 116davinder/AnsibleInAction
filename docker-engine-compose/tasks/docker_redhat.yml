@@ -1,0 +1,45 @@
+---
+- name: Adding docker Repository
+  yum_repository:
+    name: Docker Repository
+    description: Docker Repository
+    file: docker
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    gpgkey: https://yum.dockerproject.org/gpg
+    gpgcheck: yes
+    enabled: yes
+    state: present
+
+- name: Installing epel-release-7
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+    state: present
+    update_cache: true
+
+- name: Installing docker
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - docker-engine
+    - python-pip
+
+- name: Ensuring docker is running
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Creating Docker Group
+  group:
+    name: docker
+    state: present
+
+- name: Installing Docker Compose and dependenices
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pip
+    - docker-compose

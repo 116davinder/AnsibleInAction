@@ -1,0 +1,25 @@
+---
+
+- name: Adding Key for R
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E084DAB9
+
+- name: Adding R source list
+  apt_repository:
+    repo: "deb http://cran.rstudio.com/bin/linux/ubuntu {{ ansible_distribution_release }}/"
+    state: present
+    update_cache: true
+
+- name: Installing R
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - r-base
+    - r-base-dev
+
+- name: Installing Rstudio-server
+  apt:
+    deb: https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb
+    state: build-dep

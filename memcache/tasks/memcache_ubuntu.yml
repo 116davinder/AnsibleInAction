@@ -1,0 +1,13 @@
+---
+- name: Updating Cache and installing memcached server
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - memcached
+
+- name: Ensuring memcached server is running
+  service:
+    name: memcached
+    state: started
+    enabled:  yes

@@ -1,0 +1,25 @@
+---
+
+- name: Installing Tomcat Server | 7
+  apt:
+    name: tomcat7
+    state: present
+    update_cache: true
+
+- name: Setting JAVA_OPTS for Tomcat Server
+  lineinfile:
+    dest: /etc/default/tomcat7
+    regexp: '^JAVA_OPTS='
+    line: 'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"'
+    state: present
+
+- name: Creating default user admin
+  blockinfile:
+    dest: /etc/tomcat7/tomcat-users.xml
+    create: true
+    block: |
+    <tomcat-users>
+    <user username="admin" password="{{ tomcat_admin_pass }}" roles="manager-gui,admin-gui"/>
+    </tomcat-users>
+  notify:
+    - restart tomcat7

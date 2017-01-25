@@ -1,0 +1,30 @@
+---
+
+- name: Adding Oracle Java PPA
+  apt_repository:
+    repo: 'ppa:webupd8team/java'
+    state: present
+    update_cache: true
+
+- name: Install Dependencies for Oracle Java | {{ java_version }}
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python-software-properties
+    - debconf-utils
+############################################ this is not working till now
+# - name: Accepting Oracle Licence
+#   debconf:
+#     name: "oracle-java{{ java_version }}-installer"
+#     question: shared/accepted-oracle-license-v1-1
+#     value: true
+#     vtype: select
+#
+# - name: Install Oracle Java | {{ java_version }}
+#   apt:
+#     name: "oracle-java{{ java_version }}-installer"
+#     state: present
+
+- name: Installing oracle-java | {{ java_version }}
+  shell:  "echo 'oracle-java{{ java_version }}-installer shared/accepted-oracle-license-v1-1 select true' | sudo debconf-set-selections && apt-get install -y oracle-java{{ java_version }}-installer"

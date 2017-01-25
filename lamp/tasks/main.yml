@@ -1,0 +1,13 @@
+---
+
+- include: bootstrap.yml
+
+- include: apache.yml
+
+- include: mysql_ubuntu.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- include: mysql_red.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- include: php.yml

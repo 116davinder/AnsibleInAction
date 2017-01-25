@@ -1,0 +1,15 @@
+---
+
+- name: Installing Apache2 Server | if OS is Ubuntu Based
+  apt:
+    name: apache2
+    state: present
+    update_cache: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Installing HTTPD Server | if OS is Redhat Based
+  yum:
+    name: httpd
+    state: present
+    update_cache: true
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

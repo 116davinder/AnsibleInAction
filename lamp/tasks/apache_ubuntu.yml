@@ -1,7 +1,0 @@
----
-
-- name: Installing Apache2 | if OS is Ubuntu Based
-  apt:
-    name: apache2
-    state: present
-    update_cache: true

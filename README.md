@@ -12,7 +12,7 @@ You can use this code anywhere.
 * Redis-Server
 * R (R and RStudio)
 * Docker (Docker Engine and Compose)
-* Java (oracle based java)
+* oracle Java
 * Jboss
 * LAMP Stack
 * Tomcat

@@ -1,0 +1,22 @@
+---
+
+- name: Creating Backup Folder | {{ postgres_backup_dir }}
+  file:
+    path: "{{ postgres_backup_dir }}"
+    state: directory
+
+- name: Taking postgres Backup date | {{ ansible_date_time.date }}
+  command: "pg_dump -U {{ postgres_user }} -h {{ postgres_host }} -p {{ postgres_port }} {{ postgres_database }} | gzip > {{ postgres_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  args:
+    chdir: "{{ postgres_backup_dir }}"
+    creates: "{{ postgres_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  when:
+    - postgres_database != "all"
+
+- name: Taking postgres Backup date | {{ ansible_date_time.date }}
+  command: "pg_dumpall -U {{ postgres_user }} -h {{ postgres_host }} -p {{ postgres_port }} {{ postgres_database }} | gzip > {{ postgres_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  args:
+    chdir: "{{ postgres_backup_dir }}"
+    creates: "{{ postgres_backup_dir }}/{{ ansible_date_time.date }}.gz"
+  when:
+    - postgres_database == "all"

@@ -1,0 +1,23 @@
+---
+
+- include: bootstrap.yml
+  when:
+    - ansible_distribution_release == "xenial"
+    - ansible_distribution == 'Ubuntu'
+
+- name: Java Installation | Check if Java Install is needed
+  raw: which java
+  register: need_java
+  ignore_errors: true
+
+- include: install.yml
+  when:
+    - need_java | failed
+
+- name: Java_home  | Checking if Java_home setting is needed
+  command:  /bin/bash -l -c "echo $JAVA_HOME"
+  register: checking_java_home
+
+- include: java_home.yml
+  when:
+    - checking_java_home.stdout == ''

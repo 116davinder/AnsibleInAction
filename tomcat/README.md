@@ -5,6 +5,7 @@ Ansible forever.
 You can use this code anywhere.
 
 ### Roles Dependencies
+* bootstrap
 * Java
 
 ### List of vars

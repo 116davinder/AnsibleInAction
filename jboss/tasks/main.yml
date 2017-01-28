@@ -1,5 +1,57 @@
 ---
 
-- include: bootstrap.yml
+- name: Making Home Dir for jboss
+  file:
+    path: /usr/share/jboss
+    state: directory
 
-- include: jboss.yml
+- name: Downloading and Extracting jboss
+  unarchieve:
+    src:  http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
+    dest: /usr/share/jboss
+    create: /usr/share/jboss/bin
+    remote_src: true
+    extra_opts: ["--strip-components=1"]
+
+- name: Adding jboss group
+  group:
+    name: jboss
+    state: present
+
+- name: Adding jboss user
+  user:
+    name: jboss
+    state: present
+    group: jboss
+
+- name: Copying standalone.xml configuration file
+  template:
+    src:  standalone.xml.j2
+    dest: /usr/share/jboss/standalone/configuration/standalone.xml
+  notify: restart jboss
+
+- name: Creating Init Script
+  copy:
+    src:  jboss.sh
+    dest: /etc/init.d/jboss
+    mode: 0755
+    state: present
+
+- name: Fixing OwnerShip of jboss installation directory
+  file:
+    path: /usr/share/jboss
+    owner: jboss
+    group: jboss
+    state: directory
+    recurse: true
+
+- name: Enable JBoss to be started at boot
+  service:
+    name: jboss
+    enabled: true
+    state: started
+
+- name: Start Jboss script
+  become: true
+  become_user: jboss
+  command: '/usr/share/jboss/bin/standalone.sh'

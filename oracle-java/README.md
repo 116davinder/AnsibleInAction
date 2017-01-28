@@ -4,8 +4,11 @@ Ansible forever.
 ### Open Source
 You can use this code anywhere.
 
-### List of roles
+### List of vars
 * java_version: 6/7/8/9
+
+### List of Roles Required
+* bootstrap
 
 ### Support or Contact
 **EMAIL-dpsangwal@gmail.com**

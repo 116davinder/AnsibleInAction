@@ -5,15 +5,9 @@
   register: need_java
   ignore_errors: true
 
-- include: java_install_ubuntu.yml
+- include: install.yml
   when:
     - need_java | failed
-    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-- include: java_install_red.yml
-  when:
-    - need_java | failed
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: Java_home  | Checking if Java_home setting is needed
   command:  /bin/bash -l -c "echo $JAVA_HOME"

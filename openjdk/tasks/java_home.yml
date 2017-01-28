@@ -1,0 +1,15 @@
+---
+
+- name: Getting Java Home Path from System
+  shell: "readlink -fsq $(which java) | sed 's:/jre/bin/java::'"
+  register: java_home_location
+
+- name: Setting Java Home
+  create: true
+  dest: /etc/profile.d/java.sh
+  mode: 0775
+  group: root
+  owner: root
+  blockinfile:  |
+    export JAVA_HOME={{ java_home_location.stdout }}
+    export PATH=$PATH:{{ java_home_location.stdout }}/bin

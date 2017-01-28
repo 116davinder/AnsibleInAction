@@ -1,0 +1,17 @@
+---
+
+- name: Install Openjdk | {{ java_version }} | RedHat
+  yum:
+    name: "java-1.{{ java_version }}.0-openjdk"
+    state: present
+    update_cache: true
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Install Openjdk | {{ java_version }} | Ubuntu
+  apt:
+    name: "openjdk-{{ java_version }}-jdk"
+    state: present
+    update_cache: true
+  when:
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

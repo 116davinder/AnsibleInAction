@@ -1,0 +1,7 @@
+---
+postgres_database: all
+postgres_user: root
+# postgres_password:
+postgres_backup_dir: /tmp
+postgres_host: localhost
+postgres_port: 5432

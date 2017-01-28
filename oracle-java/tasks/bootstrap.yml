@@ -1,5 +1,8 @@
 ---
 
+- include_vars:
+    file: boot_vars.yml
+
 - name: Bootstrap | Check if bootstrap is needed
   raw: which python
   register: need_bootstrap

@@ -1,6 +1,9 @@
 ---
 
-- include:  bootstrap.yml
+- include: bootstrap.yml
+  when:
+    - ansible_distribution_release == "xenial"
+    - ansible_distribution == 'Ubuntu'
 
 - name: Java Installation | Check if Java Install is needed
   raw: which java

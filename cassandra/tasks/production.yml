@@ -1,6 +1,6 @@
 ---
 
-- name: Production Setting to Sysctl Config
+- name: Production Optimization for Cassandra
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"

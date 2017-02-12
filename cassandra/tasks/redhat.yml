@@ -16,10 +16,10 @@
     - dsc30
     - cassandra-tools
 
+- include: production.yml
+
 - name: Starting Cassandra
   service:
     name: cassandra
     state: starting
     enabled: true
-
-- include: production.yml

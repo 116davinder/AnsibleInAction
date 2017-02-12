@@ -19,6 +19,9 @@
     - dsc30
     - cassandra-tools
 
+- include: production.yml
+
+
 - name: Stoping Cassandra
   service:
     name: cassandra
@@ -35,5 +38,3 @@
     name: cassandra
     state: started
     enabled: true
-
-- include: production.yml

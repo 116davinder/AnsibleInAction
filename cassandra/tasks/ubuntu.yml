@@ -1,0 +1,40 @@
+---
+
+- name: Adding Cassandra Repository Keys
+  apt_key:
+    url: "https://debian.datastax.com/debian/repo_key"
+    state: present
+
+- name: Adding Cassandra Repository
+  apt_repository:
+    repo: "deb http://debian.datastax.com/community stable main"
+    state: present
+    update_cache: true
+
+- name: Installing Cassandra 3
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - dsc30
+    - cassandra-tools
+
+- include: production.yml
+
+
+- name: Stoping Cassandra
+  service:
+    name: cassandra
+    state: stopped
+    enabled: true
+
+- name: Removing Temporary Database
+  file:
+    path: "/var/lib/cassandra/data/system/"
+    state: absent
+
+- name: Starting Cassandra
+  service:
+    name: cassandra
+    state: started
+    enabled: true

@@ -1,0 +1,41 @@
+---
+
+- name: Install Gitlab Dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - policycoreutils
+    - openssh-server
+    - openssh-clients
+    - postfix
+
+- name: Ensuring Services are UP
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+    - sshd
+    - postfix
+
+- name: Getting Gitlab Repo Script
+  get_url:
+    url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh
+    dest: /tmp/gitlab.sh
+    mode: 0777
+
+- name: Running Gitlab Repo Script
+  shell: "gitlab.sh"
+  args:
+    chdir: /tmp
+    creates: /etc/yum.repos.d/gitlab_gitlab-ce.repo
+
+- name: Installing Gitlab
+  yum:
+    name: gitlab-ce
+    state: present
+
+- name: Configure and starting GitLab
+  shell: "gitlab-ctl reconfigure"

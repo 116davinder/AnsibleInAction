@@ -1,0 +1,29 @@
+---
+
+- name: Updating Cache | Installing Apt-Cacher
+  apt:
+    name: apt-cacher-ng
+    state: present
+    update_cache: true
+
+- name: Setting Cache, Log Directory and Port
+  blockinfile:
+    dest: /etc/apt-cacher-ng/acng.conf
+    state: present
+    block: |
+      CacheDir: {{ apt_cache_dir }}
+      LogDir: {{ apt_cache_log_dir }}
+      Port: {{ apt_cache_port }}
+      BindAddress: 0.0.0.0
+
+- name: Enabling Cache for Debain and ubuntu
+  blockinfile:
+    dest: /etc/apt-cacher-ng/acng.conf
+    state: present
+    block: |
+      Remap-debrep: file:deb_mirror*.gz /debian ; file:backends_debian # Debian Archives
+      Remap-uburep: file:ubuntu_mirrors /ubuntu ; file:backends_ubuntu # Ubuntu Archives
+      Remap-debvol: file:debvol_mirror*.gz /debian-volatile ; file:backends_debvol # Debian Volatile Archives
+
+- name: Restarting Apt-Cacher
+  shell: "/etc/init.d/apt-cacher-ng restart"

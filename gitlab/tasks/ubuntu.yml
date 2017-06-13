@@ -1,0 +1,32 @@
+---
+
+- name: Install Requirements of Gitlab
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - curl
+    - openssh-server
+    - ca-certificates
+    - postfix
+
+- name: Getting Gitlab Repo Script
+  get_url:
+    url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+    dest: /tmp/gitlab.sh
+    mode: 0777
+
+- name: Running Gitlab Repo Script
+  shell: "gitlab.sh"
+  args:
+    chdir: /tmp
+    creates: /etc/apt/sources.list.d/gitlab_gitlab-ce.list
+
+- name: Installing Gitlab
+  apt:
+    name: gitlab-ce
+    state: present
+
+- name: Configure and starting GitLab
+  shell: "gitlab-ctl reconfigure"

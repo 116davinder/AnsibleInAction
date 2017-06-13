@@ -1,0 +1,25 @@
+---
+
+- name: Add Cassandra Repository
+  yum_repository:
+    name: DataStax Repo for Apache Cassandra
+    file: cassandra
+    baseurl: http://rpm.datastax.com/community
+    gpgcheck: no
+    enabled: true
+
+- name: Installing Cassandra 3
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - dsc30
+    - cassandra-tools
+
+- include: production.yml
+
+- name: Starting Cassandra
+  service:
+    name: cassandra
+    state: starting
+    enabled: true
